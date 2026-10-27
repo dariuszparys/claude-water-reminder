@@ -1,0 +1,5 @@
+{
+  "name": "claude-water-reminder",
+  "owner": { "name": "Dariusz Parys" },
+  "plugins": [{ "name": "water-reminder", "source": "./" }]
+}
