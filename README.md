@@ -1,6 +1,6 @@
 # water-reminder
 
-A Claude Code mod that reminds you to drink water. Set a daily goal (2 L at least), log glasses of 0.2 L, 0.33 L or 0.5 L, and when you have gone too long without logging one, the mod reminds you every 5 minutes until you do.
+A Claude Code mod that reminds you to drink water. Set a daily goal (2 L at least), log glasses of 0.2 L, 0.4 L or 0.5 L, and when you have gone too long without logging one, the mod reminds you every 5 minutes until you do.
 
 The state is shared across all sessions: it lives in `~/.claude/water-reminder.json` (or under `$CLAUDE_CONFIG_DIR`), and every running session syncs with it every 15 seconds. A glass logged in one session ends the reminder in all the others.
 
@@ -34,7 +34,7 @@ In the desktop app, where `/plugin` does not run: click + next to the prompt box
 
 ```
 /water              status, and opens the pane
-/water 330          log a glass (also 0.33 / 0.5 / 200)
+/water 400          log a glass (also 0.4 / 0.5 / 200)
 /water goal 2.5     daily goal in litres, at least 2
 /water remind 45    remind after 45 min without a glass
 /water undo         take back the last glass

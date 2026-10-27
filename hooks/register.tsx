@@ -197,15 +197,15 @@ function describe(s: WaterShared, t: number): string {
   if (phase === 'disabled') return 'Water reminder is off. /water on turns it back on.'
   if (phase === 'off') return `Paused until ${timeOfDay(s.clock.offUntil ?? t)}. ${amount(s)} today (${glasses}).`
   if (phase === 'reached') return `Daily goal reached: ${amount(s)} (${glasses}). Streak: ${s.log.streak} days.`
-  if (phase === 'thirsty') return `Nothing for ${minutesSince(s, t)} min! ${amount(s)} today. /water 330 logs a glass.`
+  if (phase === 'thirsty') return `Nothing for ${minutesSince(s, t)} min! ${amount(s)} today. /water 400 logs a glass.`
 
   return `${amount(s)} today (${glasses}). Next reminder at ${timeOfDay(thirstyAt(s))} unless you drink before then.`
 }
 
 const USAGE = [
-  'Usage: /water [200|330|500|0.5|goal 2.5|remind 45|undo|pause [1h]|on|off|sound on|off]',
+  'Usage: /water [200|400|500|0.5|goal 2.5|remind 45|undo|pause [1h]|on|off|sound on|off]',
   '  /water             status, and opens the pane',
-  '  /water 330         log a 0.33 L glass',
+  '  /water 400         log a 0.4 L glass',
   '  /water goal 2.5    daily goal in litres (at least 2)',
   '  /water remind 45   remind after 45 min without a glass',
   '  /water pause 2h    pause reminders for two hours',
@@ -226,7 +226,7 @@ export const register: Register = on => {
     await $.command.register({
       name: 'water',
       description: 'Water: log a glass, show today, set the daily goal and the reminder',
-      argumentHint: '[200|330|500|goal 2.5|remind 45|undo|pause 1h|on|off]',
+      argumentHint: '[200|400|500|goal 2.5|remind 45|undo|pause 1h|on|off]',
       immediate: true,
     })
     isInteractive = e.isInteractive
@@ -443,8 +443,12 @@ export const register: Register = on => {
             />
           ))}
         </Box>
-        {s.today.drinks.length > 0 && <Button key="undo" label="Undo" plain dimColor onPress={() => void undo($)} />}
-        <Box flexDirection="row" gap={1} alignItems="center" justifyContent="center" flexWrap="wrap">
+        {s.today.drinks.length > 0 && (
+          <Box flexDirection="row" justifyContent="center">
+            <Button key="undo" label="Undo" plain dimColor onPress={() => void undo($)} />
+          </Box>
+        )}
+        <Box flexDirection="row" gap={e.surface === 'terminal' ? 3 : 1} alignItems="center" justifyContent="center" flexWrap="wrap">
           <Text dimColor>
             {s.today.drinks.length} {s.today.drinks.length === 1 ? 'glass' : 'glasses'} · streak {s.log.streak}
             {phase === 'off' ? '' : ` · ${s.settings.thirstMinutes} min`}

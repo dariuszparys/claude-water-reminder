@@ -1,7 +1,7 @@
 {
   "name": "water-reminder",
-  "version": "0.1.0",
-  "description": "A daily water goal (2 L at least), glasses of 0.2 / 0.33 / 0.5 L to log, and a reminder every 5 minutes once you have gone too long without one. Shared across all sessions.",
+  "version": "0.2.0",
+  "description": "A daily water goal (2 L at least), glasses of 0.2 / 0.4 / 0.5 L to log, and a reminder every 5 minutes once you have gone too long without one. Shared across all sessions.",
   "license": "MIT",
   "types": "./types/index.d.ts"
 }

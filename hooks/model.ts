@@ -8,7 +8,7 @@ export const MINUTE = 60_000
 export const HOUR = 60 * MINUTE
 
 /** The glasses, European sizes. */
-export const GLASSES = [200, 330, 500] as const
+export const GLASSES = [200, 400, 500] as const
 
 /** Nobody should drink less than this a day. */
 export const MIN_GOAL_ML = 2000

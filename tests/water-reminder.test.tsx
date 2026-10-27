@@ -121,7 +121,7 @@ test('a fresh install starts at 2.5 L and an hour, on every surface', async ($, 
       expect((await ui.find({ type: 'Svg' }))?.props.alt).toBe('Today 0 / 2.5 L')
     }
     expect((await ui.find({ key: 'glass-200' }))?.text).toMatch(/0\.2 L/)
-    expect((await ui.find({ key: 'glass-330' }))?.text).toMatch(/0\.33 L/)
+    expect((await ui.find({ key: 'glass-400' }))?.text).toMatch(/0\.4 L/)
     expect((await ui.find({ key: 'glass-500' }))?.text).toMatch(/0\.5 L/)
     expect(await ui.find({ key: 'undo' })).toBeUndefined()
     await ui.unmount()
@@ -134,21 +134,21 @@ test('glasses add up, the goal counts toward the streak, and undo takes one back
   expect(world.status.at(-1)).toBe('Water 2 / 2.5 L · 50m')
 
   const pane = await $.ui.mount({ ...PANE, surface: 'terminal' })
-  await pane.press({ key: 'glass-330' })
-  expect(world.toasts.at(-1)).toBe('+0.33 L · 2.33 / 2.5 L today.')
-  expect(world.status.at(-1)).toBe('Water 2.33 / 2.5 L · 60m')
+  await pane.press({ key: 'glass-400' })
+  expect(world.toasts.at(-1)).toBe('+0.4 L · 2.4 / 2.5 L today.')
+  expect(world.status.at(-1)).toBe('Water 2.4 / 2.5 L · 60m')
 
   await pane.press({ key: 'glass-200' })
-  expect(world.toasts.at(-1)).toBe('Daily goal reached: 2.53 / 2.5 L. Streak: 1 day.')
-  expect(world.status.at(-1)).toBe('Water ✓ 2.53 / 2.5 L')
+  expect(world.toasts.at(-1)).toBe('Daily goal reached: 2.6 / 2.5 L. Streak: 1 day.')
+  expect(world.status.at(-1)).toBe('Water ✓ 2.6 / 2.5 L')
   expect(world.saved().log).toEqual({ streak: 1, streakDay: dayOf(START) })
 
   await pane.press({ key: 'undo' })
-  expect(world.saved().today.drinks.map(d => d.ml)).toEqual([500, 500, 500, 500, 330])
+  expect(world.saved().today.drinks.map(d => d.ml)).toEqual([500, 500, 500, 500, 400])
   expect(world.saved().log.streak).toBe(0)
   await pane.unmount()
 
-  expect((await $.command.run({ ...TYPED, command: 'water', args: '0.5' })).text).toBe('Daily goal reached: 2.83 / 2.5 L. Streak: 1 day.')
+  expect((await $.command.run({ ...TYPED, command: 'water', args: '0.5' })).text).toBe('Daily goal reached: 2.9 / 2.5 L. Streak: 1 day.')
 })
 
 test('after an hour without a glass it reminds every five minutes until one is logged', async ($, on) => {
